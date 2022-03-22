@@ -2,6 +2,7 @@
 let cart = [];
 let addToCart = (id) => {
   cart.push(id);
+
   // cart[{...cart},id]
   // //using spred operator
   // cart=[...cart,id]
@@ -10,13 +11,13 @@ let addToCart = (id) => {
   document.getElementById("cart").innerHTML = length;
 };
 
-//fetcg api
+//fetch api
 fetch("https://fakestoreapi.com/products")
   .then((data) => {
     return data.json();
   })
   .then((result) => {
-    console.log(result);
+    console.table(result);
     let data1 = "";
     result.map((values) => {
       data1 += `<div class="card">
@@ -31,10 +32,12 @@ fetch("https://fakestoreapi.com/products")
    <button onclick=addToCart(${values.id})>Add to cart</button>
  </div>
 </div>`;
+
       //document.write(values.title)
       document.getElementById("cards").innerHTML = data1;
     });
   })
+
   .catch((err) => {
     console.log(err);
   });
@@ -97,3 +100,4 @@ document.getElementById("searchFilter").onkeyup = () => {
   let idata = document.getElementById("searchFilter").value;
   console.log(idata);
 };
+//Hello
