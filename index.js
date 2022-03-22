@@ -1,5 +1,8 @@
+
 // add to cart
 let cart = [];
+
+let fetchdata =[];
 let addToCart = (id) => {
   cart.push(id);
 
@@ -7,20 +10,24 @@ let addToCart = (id) => {
   // //using spred operator
   // cart=[...cart,id]
   let length = cart.length;
-  console.log(cart);
+  
   document.getElementById("cart").innerHTML = length;
-};
 
+};
 //fetch api
 fetch("https://fakestoreapi.com/products")
   .then((data) => {
     return data.json();
   })
   .then((result) => {
-    console.table(result);
+    console.log(result);
+ fetchdata=[...result]
+  console.log(fetchdata)
     let data1 = "";
-    result.map((values) => {
-      data1 += `<div class="card">
+    result.length == 0
+      ? (document.getElementById("loading").style.display = "block")
+      : result.map((values) => {
+          data1 += `<div class="card">
  <div class='image-conatiner'>
  <img src=${values.image} alt="Avatar" style="width:100%">
  </div>
@@ -28,14 +35,14 @@ fetch("https://fakestoreapi.com/products")
    <h4>Title :<b>${values.title.slice(0, 50)}</b></h4> 
    <p>Price: ${values.price}</p> 
    <p> Rate :${values.rating.rate}</p> 
-   <p>Description: ${values.description.slice(0, 80)}...</p>
+  
    <button onclick=addToCart(${values.id})>Add to cart</button>
  </div>
 </div>`;
 
-      //document.write(values.title)
-      document.getElementById("cards").innerHTML = data1;
-    });
+          //document.write(values.title)
+          document.getElementById("cards").innerHTML = data1;
+        });
   })
 
   .catch((err) => {
@@ -96,8 +103,21 @@ prevSlide.onclick = () => {
 };
 // search filter
 
-document.getElementById("searchFilter").onkeyup = () => {
-  let idata = document.getElementById("searchFilter").value;
-  console.log(idata);
+// document.getElementById("searchFilter").onkeyup = () => {
+//   let idata = document.getElementById("searchFilter").value;
+//   console.log(idata);
+// };
+//Hello from DEVOID
+//cart show logic
+let show = true;
+document.getElementById("cart-element").onclick = () => {
+  if (show) {
+    document.getElementById("tocart").style.bottom = "0";
+    show = false;
+  } else {
+    document.getElementById("tocart").style.bottom = "-440px";
+    show = true;
+  }
 };
-//Hello
+// cart data 
+
